@@ -2133,5 +2133,95 @@ class TestAU(unittest.TestCase):
         for holiday in all_holidays:
             self.assertTrue(holiday in holidays_in_2015, holiday)
 
+
+class TestFR(unittest.TestCase):
+
+    def setUp(self):
+        self.holidays = holidays.FR()
+
+    def test_new_years(self):
+        for year in range(1900, 2100):
+            dt = date(year, 1, 1)
+            self.assertTrue(dt in self.holidays)
+
+    def test_easter_monday(self):
+        for dt in [date(1900, 4, 16), date(1901, 4,  8), date(1902, 3, 31),
+                   date(1999, 4,  5), date(2000, 4, 24), date(2010, 4,  5),
+                   date(2018, 4,  2), date(2019, 4, 22), date(2020, 4, 13)]:
+            self.assertTrue(dt in self.holidays)
+
+    def test_labour_day(self):
+        for year in range(1949, 2100):
+            dt = date(year, 5, 1)
+            self.assertTrue(dt in self.holidays)
+
+    def test_victory_day(self):
+        for year in range(1953, 1958):
+            dt = date(year, 5, 8)
+            self.assertTrue(dt in self.holidays)
+        for year in range(1959, 1980):
+            dt = date(year, 5, 8)
+            self.assertTrue(dt not in self.holidays or
+                            self.holidays[dt] != "Fête de la Victoire")
+        for year in range(1981, 2100):
+            dt = date(year, 5, 8)
+            self.assertTrue(dt in self.holidays)
+
+    def test_feast_of_the_ascension(self):
+        for dt in [date(1900, 5, 24), date(1901, 5, 16), date(1902, 5,  8),
+                   date(1999, 5, 13), date(2000, 6,  1), date(2010, 5, 13),
+                   date(2018, 5, 10), date(2019, 5, 30), date(2020, 5, 21)]:
+            self.assertTrue(dt in self.holidays)
+
+    def test_whit_monday(self):
+        for dt in [date(1900, 6,  4), date(1901, 5, 27), date(1902, 5, 19),
+                   date(1999, 5, 24), date(2000, 6, 12), date(2010, 5, 24),
+                   date(2018, 5, 21), date(2019, 6, 10), date(2020, 6,  1)]:
+            self.assertTrue(dt in self.holidays)
+
+    def test_bastille_day(self):
+        for year in range(1900, 2100):
+            dt = date(year, 7, 14)
+            self.assertTrue(dt in self.holidays)
+
+    def test_assumption(self):
+        for year in range(1900, 2100):
+            dt = date(year, 8, 15)
+            self.assertTrue(dt in self.holidays)
+
+    def test_all_saints_day(self):
+        for year in range(1900, 2100):
+            dt = date(year, 11, 1)
+            self.assertTrue(dt in self.holidays)
+
+    def test_armistice_of_1918(self):
+        for year in range(1922, 2100):
+            dt = date(year, 11, 11)
+            self.assertTrue(dt in self.holidays)
+
+    def test_christmas(self):
+        for year in range(1900, 2100):
+            dt = date(year, 12, 25)
+            self.assertTrue(dt in self.holidays)
+
+    def test_all_holidays_present(self):
+        fr_2015 = sum(holidays.FR(years=[2015], prov=p)
+                      for p in holidays.FR.PROVINCES)
+        holidays_in_2015 = sum((fr_2015.get_list(key) for key in fr_2015), [])
+        all_holidays = ["Nouvel An",
+                        "Fête du Travail",
+                        "Fête de la Victoire",
+                        "Fête Nationale Française",
+                        "Armistice de 1918",
+                        "Lundi de Pâques",
+                        "Jeudi de l'Ascension",
+                        "Lundi de Pentecôte",
+                        "Assomption",
+                        "Toussaint",
+                        "Noël"]
+        for holiday in all_holidays:
+            self.assertTrue(holiday in holidays_in_2015, holiday)
+
+
 if __name__ == "__main__":
     unittest.main()

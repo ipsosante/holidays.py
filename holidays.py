@@ -15,7 +15,7 @@ from datetime import date, datetime
 from dateutil.easter import easter
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta as rd
-from dateutil.relativedelta import MO, TU, WE, TH, FR, SA
+from dateutil.relativedelta import MO, TU, WE, TH, FR as FRI, SA
 import six
 
 
@@ -245,7 +245,7 @@ class Canada(HolidayBase):
 
         # Good Friday
         if self.prov != 'QC' and year >= 1867:
-            self[easter(year) + rd(weekday=FR(-1))] = "Good Friday"
+            self[easter(year) + rd(weekday=FRI(-1))] = "Good Friday"
 
         # Easter Monday
         if self.prov == 'QC' and year >= 1867:
@@ -488,7 +488,7 @@ class UnitedStates(HolidayBase):
         # Lee Jackson Day
         name = "Lee Jackson Day"
         if self.state == 'VA' and year >= 2000:
-            dt = date(year, 1, 1) + rd(weekday=MO(+3)) + rd(weekday=FR(-1))
+            dt = date(year, 1, 1) + rd(weekday=MO(+3)) + rd(weekday=FRI(-1))
             self[dt] = name
         elif self.state == 'VA' and year >= 1983:
             self[date(year, 1, 1) + rd(weekday=MO(+3))] = name
@@ -638,7 +638,7 @@ class UnitedStates(HolidayBase):
         # Good Friday
         if self.state in ('CT', 'DE', 'GU', 'IN', 'KY', 'LA',
                           'NJ', 'NC', 'PR', 'TN', 'TX'):
-            self[easter(year) + rd(weekday=FR(-1))] = "Good Friday"
+            self[easter(year) + rd(weekday=FRI(-1))] = "Good Friday"
 
         # Confederate Memorial Day
         name = "Confederate Memorial Day"
@@ -653,7 +653,7 @@ class UnitedStates(HolidayBase):
 
         # Arbor Day
         if self.state == 'NE' and year >= 1989:
-            self[date(year, 4, 30) + rd(weekday=FR(-1))] = "Arbor Day"
+            self[date(year, 4, 30) + rd(weekday=FRI(-1))] = "Arbor Day"
         elif self.state == 'NE' and year >= 1875:
             self[date(year, 4, 22)] = "Arbor Day"
 
@@ -739,7 +739,7 @@ class UnitedStates(HolidayBase):
 
         # Statehood Day (Hawaii)
         if self.state == 'HI' and year >= 1959:
-            self[date(year, 8, 1) + rd(weekday=FR(+3))] = "Statehood Day"
+            self[date(year, 8, 1) + rd(weekday=FRI(+3))] = "Statehood Day"
 
         # Bennington Battle Day
         if self.state == 'VT' and year >= 1778:
@@ -781,7 +781,7 @@ class UnitedStates(HolidayBase):
         if self.state == 'NV' and year >= 1933:
             dt = date(year, 10, 31)
             if year >= 2000:
-                dt += rd(weekday=FR(-1))
+                dt += rd(weekday=FRI(-1))
             self[dt] = "Nevada Day"
             if self.observed and dt.weekday() == 5:
                 self[dt + rd(days=-1)] = "Nevada Day (Observed)"
@@ -852,7 +852,7 @@ class UnitedStates(HolidayBase):
         # Robert E. Lee's Birthday
         if self.state == 'GA' and year >= 2012:
             name = "Robert E. Lee's Birthday"
-            self[date(year, 11, 29) + rd(weekday=FR(-1))] = name
+            self[date(year, 11, 29) + rd(weekday=FRI(-1))] = name
 
         # Lady of Camarin Day
         if self.state == 'GU':
@@ -871,7 +871,7 @@ class UnitedStates(HolidayBase):
                 self[date(year, 12, 24) + rd(days=-1)] = name
             # If on Saturday or Sunday, observed on Friday
             elif self.observed and date(year, 12, 24).weekday() in (5, 6):
-                self[date(year, 12, 24) + rd(weekday=FR(-1))] = name
+                self[date(year, 12, 24) + rd(weekday=FRI(-1))] = name
 
         # Christmas Day
         if year > 1870:
@@ -955,7 +955,7 @@ class NewZealand(HolidayBase):
                 self[feb6 + rd(weekday=MO)] = name + " (Observed)"
 
         # Easter
-        self[easter(year) + rd(weekday=FR(-1))] = "Good Friday"
+        self[easter(year) + rd(weekday=FRI(-1))] = "Good Friday"
         self[easter(year) + rd(weekday=MO)] = "Easter Monday"
 
         # Anzac Day
@@ -1026,7 +1026,7 @@ class NewZealand(HolidayBase):
         elif self.prov in ('HKB', "Hawke's Bay"):
             name = "Hawke's Bay Anniversary Day"
             labour_day = date(year, 10, 1) + rd(weekday=MO(+4))
-            self[labour_day + rd(weekday=FR(-1))] = name
+            self[labour_day + rd(weekday=FRI(-1))] = name
 
         elif self.prov in ('WGN', 'Wellington'):
             name = "Wellington Anniversary Day"
@@ -1051,7 +1051,7 @@ class NewZealand(HolidayBase):
 
         elif self.prov in ('CAN', 'Canterbury'):
             name = "Canterbury Anniversary Day"
-            showday = date(year, 11, 1) + rd(weekday=TU) + rd(weekday=FR(+2))
+            showday = date(year, 11, 1) + rd(weekday=TU) + rd(weekday=FRI(+2))
             self[showday] = name
 
         elif self.prov in ('STC', 'South Canterbury'):
@@ -1162,7 +1162,7 @@ class Australia(HolidayBase):
             self[date(year, 3, 1) + rd(weekday=MO(+1))] = name
 
         # Easter
-        self[easter(year) + rd(weekday=FR(-1))] = "Good Friday"
+        self[easter(year) + rd(weekday=FRI(-1))] = "Good Friday"
         if self.prov in ('ACT', 'NSW', 'NT', 'QLD', 'SA', 'VIC'):
             self[easter(year) + rd(weekday=SA(-1))] = "Easter Saturday"
         if self.prov == 'NSW':
@@ -1300,4 +1300,66 @@ class Australia(HolidayBase):
 
 
 class AU(Australia):
+    pass
+
+
+class France(HolidayBase):
+    PROVINCES = ['IDF']
+
+    def __init__(self, **kwargs):
+        self.country = 'FR'
+        self.prov = kwargs.pop('prov', kwargs.pop('state', 'IDF'))
+        HolidayBase.__init__(self, **kwargs)
+
+    def _populate(self, year):
+
+        # TODO handle exceptions for Moselle, Bas-Rhin, Haut-Rhin, Guadeloupe,
+        # Martinique, Wallis-et-Futuna, Guyane, Réunion and French Polynesia
+
+        # New Year
+        if year > 1810:
+            self[date(year, 1, 1)] = "Nouvel An"
+
+        # Easter Monday
+        if year >= 1886:
+            self[easter(year) + rd(weekday=MO)] = "Lundi de Pâques"
+
+        # Labour Day
+        if year > 1948:
+            self[date(year, 5, 1)] = "Fête du Travail"
+
+        # Victory Day ("Fête de la Victoire")
+        if (year >= 1953 and year < 1959) or year >= 1981:
+            self[date(year, 5, 8)] = "Fête de la Victoire"
+
+        # Feast of the Ascension
+        if year >= 1802:
+            self[easter(year) + rd(days=39)] = "Jeudi de l'Ascension"
+
+        # Whit Monday (Pentecost Monday)
+        if year >= 1886:
+            self[easter(year) + rd(days=50)] = "Lundi de Pentecôte"
+
+        # Bastille Day ("fête nationale française")
+        if year >= 1880:
+            self[date(year, 7, 14)] = "Fête Nationale Française"
+
+        # Assumption of Mary
+        if year >= 1802:
+            self[date(year, 8, 15)] = "Assomption"
+
+        # All Saints' Day ("Toussaint")
+        if year >= 1802:
+            self[date(year, 11, 1)] = "Toussaint"
+
+        # Armistice of 11 November 1918
+        if year >= 1922:
+            self[date(year, 11, 11)] = "Armistice de 1918"
+
+        # Christmas
+        if year >= 1802:
+            self[date(year, 12, 25)] = "Noël"
+
+
+class FR(France):
     pass
