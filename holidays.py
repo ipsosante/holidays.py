@@ -19,7 +19,7 @@ from dateutil.relativedelta import MO, TU, WE, TH, FR as FRI, SA
 import six
 
 
-__version__ = '0.4-dev'
+__version__ = '0.4-ipso.1'
 
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = range(7)

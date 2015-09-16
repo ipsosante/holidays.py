@@ -17,7 +17,7 @@ except ImportError:
 
 setup(
     name='holidays',
-    version='0.4-dev',
+    version='0.4-ipso.1',
     author='ryanss',
     author_email='ryanssdev@icloud.com',
     url='https://github.com/ryanss/holidays.py',
